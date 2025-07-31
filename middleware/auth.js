@@ -3,12 +3,11 @@ import User from '../models/userModel.js';
 
 export default async function auth(req, res, next) {
   const token = req.header('Authorization')?.replace('Bearer ', '');
-  console.log("🔐 Incoming token:", token);
   if (!token) return res.status(401).send({ error: 'Access denied. No token provided.' });
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    console.log("🔓 Decoded JWT:", decoded);
+    console.log('Verifying with secret:', process.env.JWT_SECRET);
     const user = await User.findById(decoded.id).select('-password'); // Exclude password
 
     if (!user) {
