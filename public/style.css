@@ -386,25 +386,6 @@ main {
     color: #333;
 }
 
-/* Demo Credentials */
-.demo-credentials {
-    background: #f8f9fa;
-    padding: 1rem;
-    border-radius: 5px;
-    margin-top: 1rem;
-    border-left: 4px solid #667eea;
-}
-
-.demo-credentials h4 {
-    color: #667eea;
-    margin-bottom: 0.5rem;
-}
-
-.demo-credentials p {
-    margin: 0.2rem 0;
-    font-size: 0.9rem;
-}
-
 /* Forms */
 .form-group {
     margin-bottom: 1.5rem;
