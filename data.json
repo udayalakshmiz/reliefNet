@@ -1,0 +1,48 @@
+{
+  "users": [
+    {
+      "id": "1752913431693",
+      "name": "udaya",
+      "email": "zudayalakshmi7@gmail.com",
+      "password": "$2a$10$pE354moxeSlTg6Px3jtSI.rvmh8QAaStk9cEclR02IC0..SiPysYK",
+      "role": "volunteer",
+      "phone": "7569282535",
+      "location": "chirala",
+      "coordinates": null,
+      "isActive": true,
+      "createdAt": "2025-07-19T08:23:51.693Z",
+      "bio": "",
+      "emergencyContact": "",
+      "skills": "",
+      "updatedAt": "2025-07-21T05:41:09.798Z",
+      "settings": {
+        "emailNotifications": true,
+        "emergencyAlerts": true,
+        "taskNotifications": true,
+        "locationSharing": true,
+        "profileVisibility": false,
+        "contactSharing": false,
+        "language": "en",
+        "timezone": "UTC",
+        "theme": "light",
+        "updatedAt": "2025-07-21T05:41:26.104Z"
+      }
+    },
+    {
+      "id": "1753006254237",
+      "name": "Nithin",
+      "email": "nithin28@gmail.com",
+      "password": "$2a$10$1ODakE9cBPSXBlcyMk5AUOji8w15efxzz5TeH0l3A9dEDGpMIvIOS",
+      "role": "volunteer",
+      "phone": "9392313249",
+      "location": "Chennai",
+      "coordinates": null,
+      "isActive": true,
+      "createdAt": "2025-07-20T10:10:54.237Z"
+    }
+  ],
+  "requests": [],
+  "volunteers": [],
+  "resources": [],
+  "alerts": []
+}
