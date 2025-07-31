@@ -1,8 +1,6 @@
 // Global variables
 let currentUser = null;
-const API_BASE_URL = window.location.hostname === 'localhost'
-  ? 'http://localhost:3000'
-  : 'https://reliefnet-api.onrender.com';
+const API_BASE_URL = '';
 
 // DOM elements
 const hamburger = document.getElementById('hamburger');
@@ -166,7 +164,7 @@ async function handleLogin(e) {
     const password = document.getElementById('login-password').value;
     
     try {
-        const response = await fetch(`${API_BASE_URL}/api/auth/login`, {
+        const response = await fetch(`/api/auth/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -207,7 +205,7 @@ async function handleRegister(e) {
     };
     
     try {
-        const response = await fetch(`${API_BASE_URL}/api/auth/register`, {
+        const response = await fetch(`/api/auth/register`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -265,7 +263,7 @@ async function handleHelpRequest(e) {
     };
 
     try {
-        const response = await fetch(`${API_BASE_URL}/api/requests`, {
+        const response = await fetch(`/api/requests`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -321,7 +319,7 @@ async function loadTasks() {
     tasksList.innerHTML = '<p>Loading tasks...</p>';
 
     try {
-        const response = await fetch(`${API_BASE_URL}/api/tasks/my-tasks`, {
+        const response = await fetch(`/api/tasks/my-tasks`, {
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('token')}`
             }
@@ -366,7 +364,7 @@ async function loadAllRequests() {
     if (!currentUser || currentUser.role !== 'ngo') return;
     
     try {
-        const response = await fetch(`${API_BASE_URL}/api/requests`,{
+        const response = await fetch(`/api/requests`,{
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('token')}`
             }
@@ -411,7 +409,7 @@ async function loadDashboardStats() {
     if (!currentUser || currentUser.role !== 'ngo') return;
     
     try {
-        const response = await fetch(`${API_BASE_URL}/api/analytics`, {
+        const response = await fetch(`/api/analytics`, {
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('token')}`
             }
@@ -433,7 +431,7 @@ async function loadDashboardStats() {
 // Load alerts
 async function loadAlerts() {
     try {
-        const response = await fetch(`${API_BASE_URL}/api/alerts`, {
+        const response = await fetch(`/api/alerts`, {
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('token')}`
         }
@@ -473,7 +471,7 @@ async function handleContact(e) {
     };
     
     try {
-        const response = await fetch(`${API_BASE_URL}/api/contact`, {
+        const response = await fetch(`/api/contact`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -500,7 +498,7 @@ async function loadProfileData() {
     
     try {
         // Load user profile data from backend
-        const response = await fetch(`${API_BASE_URL}/api/profile/data`, {
+        const response = await fetch(`/api/profile/data`, {
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('token')}`
             }
@@ -524,7 +522,7 @@ async function loadProfileData() {
     
     // Load user statistics
     try {
-        const response = await fetch(`${API_BASE_URL}/api/profile/stats`, {
+        const response = await fetch(`/api/profile/stats`, {
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('token')}`
             }
@@ -570,7 +568,7 @@ async function handleChangePassword(e) {
     }
     
     try {
-        const response = await fetch(`${API_BASE_URL}/api/profile/change-password`, {
+        const response = await fetch(`/api/profile/change-password`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -623,7 +621,7 @@ async function acceptTask(taskData) {
     if (!currentUser || currentUser.role !== 'volunteer') return;
 
     try {
-        const response = await fetch(`${API_BASE_URL}/api/tasks/assign`, {
+        const response = await fetch(`/api/tasks/assign`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -660,7 +658,7 @@ async function assignVolunteer(requestId) {
 
     try {
         // Get available volunteers
-        const response = await fetch(`${API_BASE_URL}/api/users`, {
+        const response = await fetch(`/api/users`, {
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('token')}`
             }
@@ -704,7 +702,7 @@ async function assignVolunteer(requestId) {
                     // ✅ Volunteer assigned successfully in HelpRequest
 
                     // 🔧 Now assign actual task to the volunteer
-                    const taskAssignResponse = await fetch(`${API_BASE_URL}/api/tasks/assign`, {
+                    const taskAssignResponse = await fetch(`/api/tasks/assign`, {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -754,7 +752,7 @@ async function markResolved(requestId) {
     if (!currentUser || currentUser.role !== 'ngo') return;
     
     try {
-        const response = await fetch(`${API_BASE_URL}/api/requests/${requestId}/status`, {
+        const response = await fetch(`/api/requests/${requestId}/status`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
