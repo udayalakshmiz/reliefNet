@@ -494,7 +494,8 @@ async function handleContact(e) {
 
 // Load profile data
 async function loadProfileData() {
-    if (!currentUser) return;
+   const token = localStorage.getItem('token');
+   if (!token) return;
     
     try {
         // Load user profile data from backend
