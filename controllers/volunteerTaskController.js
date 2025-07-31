@@ -3,7 +3,6 @@ import User from '../models/userModel.js';
 import HelpRequest from '../models/requestModel.js';
 import express from 'express';
 
-// Assign a task to a volunteer (Admin/NGO only)
 export const assignTask = async (req, res) => {
   try {
     console.log("Assigning task. Authenticated user:", req.user);
@@ -11,6 +10,7 @@ export const assignTask = async (req, res) => {
 
     const { volunteerId, requestId, taskType, location, urgency, notes } = req.body;
 
+    // Create and save new volunteer task
     const task = new VolunteerTask({
       volunteerId,
       requestId,
@@ -26,19 +26,13 @@ export const assignTask = async (req, res) => {
     await task.save();
     console.log("Task saved:", task);
 
-    // Optional: Update HelpRequest status to "Assigned"
+    // Update help request status to "Assigned"
     await HelpRequest.findByIdAndUpdate(requestId, { status: 'Assigned' });
 
-    // Optional: Send email to the volunteer
+    // Just for verification/logging (optional, can be removed)
     const volunteer = await User.findById(volunteerId);
     if (!volunteer) {
-      console.error("Volunteer not found for ID:", volunteerId);
-      return res.status(404).json({ message: "Volunteer not found" });
-    }
-    const fullRequest = await HelpRequest.findById(requestId);
-    console.log("EMAIL REQUEST DATA:", fullRequest);
-    if (volunteer) {
-      await sendTaskAssignmentNotification(volunteer.email, volunteer.name, fullRequest);
+      console.warn("Volunteer not found for ID:", volunteerId);
     }
 
     res.status(201).json({ message: 'Task assigned successfully', task });
