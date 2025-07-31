@@ -1,6 +1,8 @@
 // Global variables
 let currentUser = null;
-const API_BASE_URL = 'http://localhost:3000';
+const API_BASE_URL = window.location.hostname === 'localhost'
+  ? 'http://localhost:3000'
+  : 'https://reliefnet-api.onrender.com';
 
 // DOM elements
 const hamburger = document.getElementById('hamburger');
