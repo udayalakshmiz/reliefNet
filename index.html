@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ReliefNet - Disaster Relief Coordination Platform</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h2><i class="fas fa-hands-helping"></i> ReliefNet</h2>
+            </div>
+            
+            <div class="nav-menu" id="nav-menu">
+                <ul class="nav-list" id="nav-list">
+                    <li class="nav-item"><a href="#home" class="nav-link">Home</a></li>
+                    <li class="nav-item public-only"><a href="#about" class="nav-link">About</a></li>
+                    <li class="nav-item public-only"><a href="#contact" class="nav-link">Contact</a></li>
+                    <li class="nav-item public-only"><a href="#" class="nav-link" onclick="showLogin()">Login</a></li>
+                    <li class="nav-item public-only"><a href="#" class="nav-link btn-register" onclick="showRegister()">Register</a></li>
+                    
+                    <!-- Victim Menu -->
+                    <li class="nav-item victim-only"><a href="#request-help" class="nav-link">Request Help</a></li>
+                    <li class="nav-item victim-only"><a href="#alerts" class="nav-link">Alerts</a></li>
+                    
+                    <!-- Volunteer Menu -->
+                    <li class="nav-item volunteer-only"><a href="#tasks" class="nav-link">Tasks</a></li>
+                    <li class="nav-item volunteer-only"><a href="#alerts" class="nav-link">Alerts</a></li>
+                    
+                    <!-- NGO Menu -->
+                    <li class="nav-item ngo-only"><a href="#dashboard" class="nav-link">Dashboard</a></li>
+                    <li class="nav-item ngo-only"><a href="#manage-requests" class="nav-link">Manage Requests</a></li>
+                    <li class="nav-item ngo-only"><a href="#alerts" class="nav-link">Alerts</a></li>
+                    
+                    <!-- Logged in user menu -->
+                    <li class="nav-item logged-in-only">
+                        <div class="user-menu">
+                            <i class="fas fa-bell notification-bell" onclick="showNotifications()"></i>
+                            <div class="user-profile" onclick="toggleUserDropdown()">
+                                <i class="fas fa-user-circle"></i>
+                                <span id="user-name">User</span>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="user-dropdown" id="user-dropdown">
+                                <a href="#profile" onclick="showProfile()">Profile</a>
+                                <a href="#" onclick="logout()">Logout</a>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="hamburger" id="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <main id="main-content">
+        <!-- Landing Page -->
+        <section id="home" class="section active">
+            <div class="hero">
+                <div class="hero-content">
+                    <div class="hero-text">
+                        <h1>Disaster Relief Coordination Platform</h1>
+                        <p>Connecting victims, volunteers, and relief organizations during emergencies. Fast, reliable, and efficient disaster response coordination.</p>
+                        <div class="hero-buttons">
+                            <button class="btn btn-primary" onclick="showRegister()">Get Help Now</button>
+                            <button class="btn btn-secondary" onclick="showVolunteerRegister()">Volunteer Today</button>
+                        </div>
+                    </div>
+                    <div class="hero-image">
+                        <img src="https://images.pexels.com/photos/6646918/pexels-photo-6646918.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Disaster Relief Team">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="features">
+                <div class="container">
+                    <h2>How ReliefNet Works</h2>
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <i class="fa-solid fa-hands-holding-child"></i>
+                            <h3>Request Help</h3>
+                            <p>Victims can quickly submit help requests with location and urgency details.</p>
+                        </div>
+                        <div class="feature-card">
+                            <i class="fas fa-hands-helping"></i>
+                            <h3>Volunteer Response</h3>
+                            <p>Volunteers can view nearby requests and offer immediate assistance.</p>
+                        </div>
+                        <div class="feature-card">
+                            <i class="fas fa-building"></i>
+                            <h3>NGO Coordination</h3>
+                            <p>Relief organizations can manage resources and coordinate large-scale operations.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="emergency-contacts">
+                <div class="container">
+                    <h2>Emergency Contacts</h2>
+                    <div class="contacts-grid">
+                        <div class="contact-item">
+                            <i class="fas fa-phone-alt"></i>
+                            <h4>Emergency Services</h4>
+                            <p>911 / 108 / 102</p>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-ambulance"></i>
+                            <h4>Medical Emergency</h4>
+                            <p>108 / 1066</p>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-fire"></i>
+                            <h4>Fire Department</h4>
+                            <p>101</p>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-shield-alt"></i>
+                            <h4>Police</h4>
+                            <p>100</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Login Modal -->
+        <div id="login-modal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal('login-modal')">&times;</span>
+                <h2>Login</h2>
+                <form id="login-form">
+                    <div class="form-group">
+                        <label for="login-email">Email:</label>
+                        <input type="email" id="login-email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="login-password">Password:</label>
+                        <input type="password" id="login-password" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Login</button>
+                </form>
+                <p>Don't have an account? <a href="#" onclick="closeModal('login-modal'); showRegister()">Register here</a></p>
+            </div>
+        </div>
+
+        <!-- Register Modal -->
+        <div id="register-modal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal('register-modal')">&times;</span>
+                <h2>Register</h2>
+                <form id="register-form">
+                    <div class="form-group">
+                        <label for="register-name">Full Name:</label>
+                        <input type="text" id="register-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="register-email">Email:</label>
+                        <input type="email" id="register-email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="register-phone">Phone:</label>
+                        <input type="tel" id="register-phone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="register-location">Location:</label>
+                        <input type="text" id="register-location" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="register-role">Role:</label>
+                        <select id="register-role" required>
+                            <option value="">Select Role</option>
+                            <option value="victim">Need Help (Victim)</option>
+                            <option value="volunteer">Volunteer</option>
+                            <option value="ngo">NGO/Relief Organization</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="register-password">Password:</label>
+                        <input type="password" id="register-password" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Register</button>
+                </form>
+                <p>Already have an account? <a href="#" onclick="closeModal('register-modal'); showLogin()">Login here</a></p>
+            </div>
+        </div>
+
+        <!-- Request Help Page -->
+        <section id="request-help" class="section">
+            <div class="container">
+                <h2>Request Help</h2>
+                <form id="help-request-form" class="help-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="help-type">Type of Help Needed:</label>
+                            <select id="help-type" required>
+                                <option value="">Select Type</option>
+                                <option value="Food">Food</option>
+                                <option value="Water">Water</option>
+                                <option value="Shelter">Shelter</option>
+                                <option value="Medical Aid">Medical Aid</option>
+                                <option value="Rescue">Rescue</option>
+                                <option value="Transportation">Transportation</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="urgency">Urgency Level:</label>
+                            <select id="urgency" required>
+                                <option value="">Select Urgency</option>
+                                <option value="Low">Low</option>
+                                <option value="Medium">Medium</option>
+                                <option value="High">High</option>
+                                <option value="Critical">Critical</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="help-description">Description:</label>
+                        <textarea id="help-description" rows="4" required placeholder="Please describe your situation and what help you need..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="help-location">Location:</label>
+                        <input type="text" id="help-location" required placeholder="Enter your location or address">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit Request</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Tasks Page (Volunteer) -->
+        <section id="tasks" class="section">
+            <div class="container">
+                <h2>Available Tasks</h2>
+                <div id="tasks-list" class="tasks-grid">
+                    <!-- Tasks will be loaded here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Dashboard (NGO) -->
+        <section id="dashboard" class="section">
+            <div class="container">
+                <h2>NGO Dashboard</h2>
+                <div class="dashboard-stats">
+                    <div class="stat-card">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <h3 id="pending-requests">0</h3>
+                        <p>Pending Requests</p>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-users"></i>
+                        <h3 id="active-volunteers">0</h3>
+                        <p>Active Volunteers</p>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-check-circle"></i>
+                        <h3 id="resolved-cases">0</h3>
+                        <p>Resolved Cases</p>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-map-marked-alt"></i>
+                        <h3 id="affected-areas">0</h3>
+                        <p>Affected Areas</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Manage Requests (NGO) -->
+        <section id="manage-requests" class="section">
+            <div class="container">
+                <h2>Manage Requests</h2>
+                <div id="all-requests-list" class="requests-grid">
+                    <!-- All requests will be loaded here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Alerts Page -->
+        <section id="alerts" class="section">
+            <div class="container">
+                <h2>Emergency Alerts</h2>
+                <div id="alerts-list" class="alerts-grid">
+                    <!-- Alerts will be loaded here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Profile Page -->
+        <section id="profile" class="section">
+            <div class="container">
+                <h2>User Profile</h2>
+                <div class="profile-content">
+                    <div class="profile-form">
+                        <form id="profile-form">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="profile-name">Full Name:</label>
+                                    <input type="text" id="profile-name" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="profile-email">Email:</label>
+                                    <input type="email" id="profile-email" required>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="profile-phone">Phone:</label>
+                                    <input type="tel" id="profile-phone" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="profile-location">Location:</label>
+                                    <input type="text" id="profile-location" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="profile-bio">Bio:</label>
+                                <textarea id="profile-bio" rows="3" placeholder="Tell us about yourself..."></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="profile-emergency-contact">Emergency Contact:</label>
+                                <input type="text" id="profile-emergency-contact" placeholder="Name and phone number">
+                            </div>
+                            <div class="form-group">
+                                <label for="profile-skills">Skills/Expertise:</label>
+                                <input type="text" id="profile-skills" placeholder="e.g., First Aid, Medical, Transportation">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Update Profile</button>
+                        </form>
+                        <div class="profile-actions">
+                            <button class="btn btn-secondary" onclick="showChangePassword()">Change Password</button>
+                            <button class="btn btn-secondary" onclick="downloadData()">Download My Data</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Page -->
+        <section id="about" class="section">
+            <div class="container">
+                <h2>About ReliefNet</h2>
+                <div class="about-content">
+                    <div class="about-text">
+                        <h3>Our Mission</h3>
+                        <p>ReliefNet is a comprehensive disaster relief coordination platform designed to bridge the gap between victims, volunteers, and relief organizations during emergencies. Our platform enables rapid response, efficient resource allocation, and seamless communication during critical situations.</p>
+                        
+                        <h3>How It Works</h3>
+                        <div class="how-it-works">
+                            <div class="step">
+                                <div class="step-number">1</div>
+                                <div class="step-content">
+                                    <h4>Report Emergency</h4>
+                                    <p>Victims can quickly report their location and the type of help needed through our platform.</p>
+                                </div>
+                            </div>
+                            <div class="step">
+                                <div class="step-number">2</div>
+                                <div class="step-content">
+                                    <h4>Connect with Volunteers</h4>
+                                    <p>Nearby volunteers and NGOs receive notifications and can respond immediately.</p>
+                                </div>
+                            </div>
+                            <div class="step">
+                                <div class="step-number">3</div>
+                                <div class="step-content">
+                                    <h4>Coordinate Relief</h4>
+                                    <p>Our platform facilitates coordination between all parties to ensure efficient relief delivery.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <h3>Key Features</h3>
+                        <ul class="features-list">
+                            <li><i class="fas fa-mobile-alt"></i> Mobile-responsive design</li>
+                            <li><i class="fas fa-shield-alt"></i> Secure user authentication</li>
+                            <li><i class="fas fa-users"></i> Multi-role user system</li>
+                            <li><i class="fas fa-clock"></i> 24/7 emergency support</li>
+                        </ul>
+                    </div>
+                    <div class="about-image">
+                        <img src="https://images.pexels.com/photos/6646919/pexels-photo-6646919.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Relief Coordination">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Page -->
+        <section id="contact" class="section">
+            <div class="container">
+                <h2>Contact Us</h2>
+                <div class="contact-content">
+                    <div class="contact-form">
+                        <h3>Send us a Message</h3>
+                        <form id="contact-form">
+                            <div class="form-group">
+                                <label for="contact-name">Name:</label>
+                                <input type="text" id="contact-name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="contact-email">Email:</label>
+                                <input type="email" id="contact-email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="contact-subject">Subject:</label>
+                                <input type="text" id="contact-subject" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="contact-message">Message:</label>
+                                <textarea id="contact-message" rows="5" required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Send Message</button>
+                        </form>
+                    </div>
+                    <div class="contact-info">
+                        <h3>Get in Touch</h3>
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <div>
+                                <h4>Emergency Hotline</h4>
+                                <p>+91 7569282535</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <div>
+                                <h4>Email</h4>
+                                <p>zudayalakshmi7@gmail.com</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-clock"></i>
+                            <div>
+                                <h4>Emergency Support</h4>
+                                <p>24/7 Available</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Change Password Modal -->
+    <div id="change-password-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('change-password-modal')">&times;</span>
+            <h2>Change Password</h2>
+            <form id="change-password-form">
+                <div class="form-group">
+                    <label for="current-password">Current Password:</label>
+                    <input type="password" id="current-password" required>
+                </div>
+                <div class="form-group">
+                    <label for="new-password">New Password:</label>
+                    <input type="password" id="new-password" required minlength="6">
+                </div>
+                <div class="form-group">
+                    <label for="confirm-password">Confirm New Password:</label>
+                    <input type="password" id="confirm-password" required minlength="6">
+                </div>
+                <button type="submit" class="btn btn-primary">Change Password</button>
+            </form>
+        </div>
+    </div>
+
+    
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3><i class="fas fa-hands-helping"></i> ReliefNet</h3>
+                    <p>Connecting communities during emergencies</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Emergency</h4>
+                    <ul>
+                        <li>Police: 100</li>
+                        <li>Fire: 101</li>
+                        <li>Medical: 108</li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Follow Us</h4>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 ReliefNet. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
